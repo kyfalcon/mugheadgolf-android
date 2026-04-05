@@ -23,7 +23,7 @@ fun GroupEmailScreen() {
     var loading by remember { mutableStateOf(true) }
     var sending by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         scope.launch {
@@ -85,7 +85,7 @@ fun SendScheduleScreen(sessionViewModel: SessionViewModel) {
     var selectedWeek by remember { mutableIntStateOf(session.currentWeek.coerceAtLeast(1)) }
     var sending by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Send Weekly Schedule Email (Admin)", style = MaterialTheme.typography.headlineMedium)

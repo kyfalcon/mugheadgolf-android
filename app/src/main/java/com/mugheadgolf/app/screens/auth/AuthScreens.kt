@@ -39,7 +39,7 @@ fun ActivationNoticeScreen(onBack: () -> Unit) {
 fun AuthenticateScreen(token: String, onAuthenticated: () -> Unit, onError: () -> Unit) {
     var loading by remember { mutableStateOf(true) }
     var errorMsg by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(token) {
         scope.launch {

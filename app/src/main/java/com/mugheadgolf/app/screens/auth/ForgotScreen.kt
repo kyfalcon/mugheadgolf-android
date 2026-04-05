@@ -20,7 +20,7 @@ fun ForgotScreen(onBack: () -> Unit) {
     var loading by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
     var isError by remember { mutableStateOf(false) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
 
     fun submit() {

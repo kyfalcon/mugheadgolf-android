@@ -19,7 +19,7 @@ fun GolferListScreen() {
     var golfers by remember { mutableStateOf<List<Golfer>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         scope.launch {

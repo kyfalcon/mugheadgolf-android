@@ -19,7 +19,7 @@ fun LeagueStatsScreen(sessionViewModel: SessionViewModel) {
     val session by sessionViewModel.state.collectAsState()
     var stats by remember { mutableStateOf<List<Stats>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {
@@ -67,7 +67,7 @@ fun WeeklyStatsScreen(sessionViewModel: SessionViewModel) {
     val session by sessionViewModel.state.collectAsState()
     var stats by remember { mutableStateOf<List<WeeklyStats>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {

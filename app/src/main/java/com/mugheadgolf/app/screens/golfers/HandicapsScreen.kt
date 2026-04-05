@@ -17,7 +17,7 @@ fun HandicapsScreen(sessionViewModel: SessionViewModel) {
     val session by sessionViewModel.state.collectAsState()
     var handicaps by remember { mutableStateOf<List<Any>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {

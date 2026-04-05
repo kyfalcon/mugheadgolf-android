@@ -16,6 +16,11 @@ import com.mugheadgolf.app.data.models.Golfer
 import kotlinx.coroutines.launch
 
 @Composable
+private fun LabeledField(label: String, value: String, keyboard: KeyboardOptions = KeyboardOptions.Default, onChange: (String) -> Unit) {
+    OutlinedTextField(value = value, onValueChange = onChange, label = { Text(label) }, modifier = Modifier.fillMaxWidth(), keyboardOptions = keyboard)
+}
+
+@Composable
 fun GolferFormScreen(id: String, onSaved: () -> Unit, onBack: () -> Unit) {
     val isNew = id == "0"
     var golfer by remember { mutableStateOf(Golfer()) }
@@ -23,7 +28,7 @@ fun GolferFormScreen(id: String, onSaved: () -> Unit, onBack: () -> Unit) {
     var saving by remember { mutableStateOf(false) }
     var errorMsg by remember { mutableStateOf("") }
     var adminChecked by remember { mutableStateOf(false) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(id) {
         if (!isNew) {
@@ -43,21 +48,17 @@ fun GolferFormScreen(id: String, onSaved: () -> Unit, onBack: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(if (isNew) "Add Golfer" else "Edit Golfer", style = MaterialTheme.typography.titleLarge)
 
-        fun field(label: String, value: String, onChange: (String) -> Unit, keyboard: KeyboardOptions = KeyboardOptions.Default) {
-            OutlinedTextField(value = value, onValueChange = onChange, label = { Text(label) }, modifier = Modifier.fillMaxWidth(), keyboardOptions = keyboard)
-        }
-
-        field("First Name", golfer.firstname) { golfer = golfer.copy(firstname = it) }
-        field("Last Name", golfer.lastname) { golfer = golfer.copy(lastname = it) }
-        field("Username", golfer.username) { golfer = golfer.copy(username = it) }
+        LabeledField("First Name", golfer.firstname) { golfer = golfer.copy(firstname = it) }
+        LabeledField("Last Name", golfer.lastname) { golfer = golfer.copy(lastname = it) }
+        LabeledField("Username", golfer.username) { golfer = golfer.copy(username = it) }
         OutlinedTextField(value = golfer.password, onValueChange = { golfer = golfer.copy(password = it) }, label = { Text("Password") }, modifier = Modifier.fillMaxWidth(), visualTransformation = PasswordVisualTransformation())
-        field("Email", golfer.email, { golfer = golfer.copy(email = it) }, KeyboardOptions(keyboardType = KeyboardType.Email))
-        field("Phone", golfer.phone, { golfer = golfer.copy(phone = it) }, KeyboardOptions(keyboardType = KeyboardType.Phone))
-        field("Address", golfer.address) { golfer = golfer.copy(address = it) }
-        field("City", golfer.city) { golfer = golfer.copy(city = it) }
-        field("State", golfer.state) { golfer = golfer.copy(state = it) }
-        field("Zip", golfer.zip, { golfer = golfer.copy(zip = it) }, KeyboardOptions(keyboardType = KeyboardType.Number))
-        field("Spouse", golfer.spouse) { golfer = golfer.copy(spouse = it) }
+        LabeledField("Email", golfer.email, KeyboardOptions(keyboardType = KeyboardType.Email)) { golfer = golfer.copy(email = it) }
+        LabeledField("Phone", golfer.phone, KeyboardOptions(keyboardType = KeyboardType.Phone)) { golfer = golfer.copy(phone = it) }
+        LabeledField("Address", golfer.address) { golfer = golfer.copy(address = it) }
+        LabeledField("City", golfer.city) { golfer = golfer.copy(city = it) }
+        LabeledField("State", golfer.state) { golfer = golfer.copy(state = it) }
+        LabeledField("Zip", golfer.zip, KeyboardOptions(keyboardType = KeyboardType.Number)) { golfer = golfer.copy(zip = it) }
+        LabeledField("Spouse", golfer.spouse) { golfer = golfer.copy(spouse = it) }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Checkbox(checked = adminChecked, onCheckedChange = { adminChecked = it; golfer = golfer.copy(admin = it) })

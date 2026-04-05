@@ -28,7 +28,7 @@ fun CalcHandicapsScreen(sessionViewModel: SessionViewModel) {
     val session by sessionViewModel.state.collectAsState()
     var loading by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Calculate Handicaps (Admin)", style = MaterialTheme.typography.headlineMedium)
@@ -71,7 +71,7 @@ fun SelectYearScreen(sessionViewModel: SessionViewModel) {
 fun EditGolferScreen(onEditGolfer: (Int) -> Unit) {
     var golfers by remember { mutableStateOf<List<Golfer>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         scope.launch {
@@ -108,7 +108,7 @@ fun DivisionSetupScreen(sessionViewModel: SessionViewModel) {
     var loading by remember { mutableStateOf(true) }
     var newName by remember { mutableStateOf("") }
     var saving by remember { mutableStateOf(false) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     fun load() {
         scope.launch {
@@ -166,7 +166,7 @@ fun DivisionsScreen(sessionViewModel: SessionViewModel) {
     var divisionGolfers by remember { mutableStateOf<Map<Int, List<DivisionGolfer>>>(emptyMap()) }
     var allGolfers by remember { mutableStateOf<List<Golfer>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {
@@ -212,7 +212,7 @@ fun SettingsScreen(sessionViewModel: SessionViewModel) {
     var message by remember { mutableStateOf("") }
     var weeks by remember { mutableStateOf("") }
     var startDate by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {

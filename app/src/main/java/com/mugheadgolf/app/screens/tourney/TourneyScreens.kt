@@ -19,7 +19,7 @@ fun TourneySeedsScreen(title: String, type: String, sessionViewModel: SessionVie
     val session by sessionViewModel.state.collectAsState()
     var seeds by remember { mutableStateOf<List<TourneySeed>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year, type) {
         scope.launch {
@@ -68,7 +68,7 @@ fun BracketScreen(title: String, type: String, sessionViewModel: SessionViewMode
     val session by sessionViewModel.state.collectAsState()
     var branches by remember { mutableStateOf<List<TourneyBranch>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year, type) {
         scope.launch {

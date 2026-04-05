@@ -14,6 +14,31 @@ import com.mugheadgolf.app.data.models.Wager
 import com.mugheadgolf.app.viewmodels.SessionViewModel
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun PickDropdown(label: String, golfers: List<Golfer>, selected: Golfer?, onSelect: (Golfer?) -> Unit) {
+    var expanded by remember { mutableStateOf(false) }
+    ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it }) {
+        OutlinedTextField(
+            value = selected?.let { "${it.firstname} ${it.lastname}" } ?: "Select...",
+            onValueChange = {},
+            readOnly = true,
+            label = { Text(label) },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            modifier = Modifier.menuAnchor().fillMaxWidth()
+        )
+        ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            DropdownMenuItem(text = { Text("None") }, onClick = { onSelect(null); expanded = false })
+            golfers.forEach { g ->
+                DropdownMenuItem(
+                    text = { Text("${g.firstname} ${g.lastname}") },
+                    onClick = { onSelect(g); expanded = false }
+                )
+            }
+        }
+    }
+}
+
 @Composable
 fun WagerScreen(sessionViewModel: SessionViewModel) {
     val session by sessionViewModel.state.collectAsState()
@@ -26,7 +51,7 @@ fun WagerScreen(sessionViewModel: SessionViewModel) {
     var pick2 by remember { mutableStateOf<Golfer?>(null) }
     var pick3 by remember { mutableStateOf<Golfer?>(null) }
     var pick4 by remember { mutableStateOf<Golfer?>(null) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year, session.currentWeek, session.idgolfer) {
         scope.launch {
@@ -50,34 +75,10 @@ fun WagerScreen(sessionViewModel: SessionViewModel) {
 
         Text("Select 4 golfers you think will have the lowest scores this week:")
 
-        @Composable
-        fun PickDropdown(label: String, selected: Golfer?, onSelect: (Golfer?) -> Unit) {
-            var expanded by remember { mutableStateOf(false) }
-            ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it }) {
-                OutlinedTextField(
-                    value = selected?.let { "${it.firstname} ${it.lastname}" } ?: "Select...",
-                    onValueChange = {},
-                    readOnly = true,
-                    label = { Text(label) },
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                    modifier = Modifier.menuAnchor().fillMaxWidth()
-                )
-                ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                    DropdownMenuItem(text = { Text("None") }, onClick = { onSelect(null); expanded = false })
-                    golfers.forEach { g ->
-                        DropdownMenuItem(
-                            text = { Text("${g.firstname} ${g.lastname}") },
-                            onClick = { onSelect(g); expanded = false }
-                        )
-                    }
-                }
-            }
-        }
-
-        PickDropdown("Pick 1", pick1) { pick1 = it }
-        PickDropdown("Pick 2", pick2) { pick2 = it }
-        PickDropdown("Pick 3", pick3) { pick3 = it }
-        PickDropdown("Pick 4", pick4) { pick4 = it }
+        PickDropdown("Pick 1", golfers, pick1) { pick1 = it }
+        PickDropdown("Pick 2", golfers, pick2) { pick2 = it }
+        PickDropdown("Pick 3", golfers, pick3) { pick3 = it }
+        PickDropdown("Pick 4", golfers, pick4) { pick4 = it }
 
         if (message.isNotEmpty()) Card { Text(message, modifier = Modifier.padding(8.dp)) }
 
@@ -109,7 +110,7 @@ fun WagerResultsScreen(sessionViewModel: SessionViewModel) {
     var results by remember { mutableStateOf<List<Wager>>(emptyList()) }
     var selectedWeek by remember { mutableIntStateOf(session.currentWeek.coerceAtLeast(1)) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year, selectedWeek) {
         loading = true

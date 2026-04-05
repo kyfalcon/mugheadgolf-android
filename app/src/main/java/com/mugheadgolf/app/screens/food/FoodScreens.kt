@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 fun FoodMenuScreen(sessionViewModel: SessionViewModel, onOrder: () -> Unit) {
     var menu by remember { mutableStateOf<List<Menu>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         scope.launch {
@@ -59,7 +59,7 @@ fun OrderScreen(sessionViewModel: SessionViewModel) {
     var loading by remember { mutableStateOf(true) }
     var saving by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         scope.launch {

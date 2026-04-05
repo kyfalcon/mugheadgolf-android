@@ -20,7 +20,7 @@ fun GolferMoneyScreen(sessionViewModel: SessionViewModel) {
     val session by sessionViewModel.state.collectAsState()
     var moneyList by remember { mutableStateOf<List<GolferMoney>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {
@@ -62,7 +62,7 @@ fun WeeklyMoneyScreen(sessionViewModel: SessionViewModel) {
     val session by sessionViewModel.state.collectAsState()
     var weeklyWinners by remember { mutableStateOf<List<Any>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {
@@ -91,7 +91,7 @@ fun AddMoneyScreen(sessionViewModel: SessionViewModel) {
     var selectedWeek by remember { mutableIntStateOf(session.currentWeek.coerceAtLeast(1)) }
     var loading by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Add Weekly Winners (Admin)", style = MaterialTheme.typography.headlineMedium)

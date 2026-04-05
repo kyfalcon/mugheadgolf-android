@@ -31,7 +31,7 @@ fun RegisterScreen(id: String, onSuccess: () -> Unit, onBack: () -> Unit) {
     var spouse by remember { mutableStateOf("") }
     var loading by remember { mutableStateOf(false) }
     var errorMsg by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(id) {
         if (!isNew) {

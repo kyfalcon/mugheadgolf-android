@@ -19,7 +19,7 @@ fun WeeklyScheduleScreen(sessionViewModel: SessionViewModel, onMatchClick: (Int)
     var schedules by remember { mutableStateOf<List<Schedule>>(emptyList()) }
     var selectedWeek by remember { mutableIntStateOf(session.currentWeek.coerceAtLeast(1)) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {
@@ -66,7 +66,7 @@ fun GolferScheduleScreen(sessionViewModel: SessionViewModel, onMatchClick: (Int)
     val session by sessionViewModel.state.collectAsState()
     var schedules by remember { mutableStateOf<List<Schedule>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year, session.idgolfer) {
         scope.launch {
@@ -103,7 +103,7 @@ fun TeeTimesScreen(sessionViewModel: SessionViewModel) {
     var schedules by remember { mutableStateOf<List<Schedule>>(emptyList()) }
     var selectedWeek by remember { mutableIntStateOf(session.currentWeek.coerceAtLeast(1)) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {
@@ -155,7 +155,7 @@ fun CreateScheduleScreen(sessionViewModel: SessionViewModel, onCreated: () -> Un
     val session by sessionViewModel.state.collectAsState()
     var loading by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Create Schedule", style = MaterialTheme.typography.headlineMedium)

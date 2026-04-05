@@ -18,7 +18,7 @@ fun WeeklyScoresScreen(sessionViewModel: SessionViewModel, onMatchClick: (Int) -
     var scores by remember { mutableStateOf<List<Any>>(emptyList()) }
     var selectedWeek by remember { mutableIntStateOf(session.currentWeek.coerceAtLeast(1)) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year, selectedWeek) {
         loading = true
@@ -55,7 +55,7 @@ fun GolferScoresScreen(sessionViewModel: SessionViewModel) {
     val session by sessionViewModel.state.collectAsState()
     var scores by remember { mutableStateOf<List<Any>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {
@@ -84,7 +84,7 @@ fun GolferNetScoresScreen(sessionViewModel: SessionViewModel) {
     // Re-use same API as golfer scores but display "net" label
     var scores by remember { mutableStateOf<List<Any>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year) {
         scope.launch {
@@ -112,7 +112,7 @@ fun FoursomeScoreScreen(idfoursome: Int, sessionViewModel: SessionViewModel) {
     val session by sessionViewModel.state.collectAsState()
     var loading by remember { mutableStateOf(true) }
     var scoredatas by remember { mutableStateOf<List<com.mugheadgolf.app.data.models.ScoreData>>(emptyList()) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(idfoursome) {
         scope.launch {
@@ -147,7 +147,7 @@ fun EditScoreScreen(sessionViewModel: SessionViewModel) {
     var selectedWeek by remember { mutableIntStateOf(session.currentWeek.coerceAtLeast(1)) }
     var scores by remember { mutableStateOf<List<Any>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(session.year, selectedWeek) {
         loading = true

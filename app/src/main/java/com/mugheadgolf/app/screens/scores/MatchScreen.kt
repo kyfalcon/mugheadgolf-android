@@ -126,7 +126,7 @@ fun MatchScreen(idschedule: Int, sessionViewModel: SessionViewModel) {
     var canSave by remember { mutableStateOf(false) }
     var refreshTick by remember { mutableIntStateOf(0) }
 
-    val scope = kotlinx.coroutines.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
     val api = ApiClient.service
 
     fun recalcAll(cd: CourseData) {
